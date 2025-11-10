@@ -18,7 +18,7 @@ FACTOR_TICKERS = {
     "USA Momentum": "MTUM",
     "USA Value": "VLUE",
     "USA Quality": "QUAL",
-    "USA Growth (Russell 1000)": "IWF",
+    "USA Growth": "IUSG",
     "USA Size": "SIZE",
 }
 
