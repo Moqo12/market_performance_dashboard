@@ -13,12 +13,13 @@ st.markdown("Analyzing the performance of US investment factors and sectors, alo
 
 # --- Ticker Definitions (ALL US-LISTED & USD-DENOMINATED) ---
 FACTOR_TICKERS = {
-    "S&P 500 (US Benchmark)": "VOO", # Primary benchmark for US factors
+    "MSCI USA (US Benchmark)": "EUSA", # Primary benchmark for US factors
     "MSCI World (Global Benchmark)": "URTH",
     "USA Momentum": "MTUM",
     "USA Value": "VLUE",
     "USA Quality": "QUAL",
     "USA Growth": "IUSG",
+    "USA Low Volatility": "USMV",
     "USA Size": "SIZE",
 }
 
@@ -186,7 +187,7 @@ def display_performance_section(title, tickers):
     
     # --- NEW: Dynamic Benchmark Selection ---
     if title == "Factor" or title == "Sector":
-        benchmark_name = "S&P 500 (US Benchmark)"
+        benchmark_name = "MSCI USA (US Benchmark)"
     else: # For Regional tab
         benchmark_name = "MSCI World (Benchmark)"
 
