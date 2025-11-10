@@ -25,7 +25,7 @@ FACTOR_TICKERS = {
 
 REGION_TICKERS = {
     "MSCI World (Benchmark)": "URTH",
-    "USA (S&P 500)": "VOO",
+    "MSCI USA (US Benchmark)": "EUSA",
     "Japan": "EWJ",
     "UK": "EWU",
     "Europe ex-UK": "EZU",
@@ -35,7 +35,7 @@ REGION_TICKERS = {
 }
 
 SECTOR_TICKERS = {
-    "S&P 500 (US Benchmark)": "VOO", # Primary benchmark for US sectors
+    "MSCI USA (US Benchmark)": "EUSA", # Primary benchmark for US sectors
     "Info. Technology": "VGT",
     "Health Care": "VHT",
     "Financials": "VFH",
