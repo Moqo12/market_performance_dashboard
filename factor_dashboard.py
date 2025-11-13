@@ -271,3 +271,4 @@ with tab4:
 
 st.markdown(f"--- \n_*Data last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*_")
 
+
