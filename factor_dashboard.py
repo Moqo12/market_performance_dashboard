@@ -35,7 +35,7 @@ REGION_TICKERS = {
 }
 
 SECTOR_TICKERS = {
-    "MSCI USA (US Benchmark)": "VTI", # Primary benchmark for US sectors
+    "US Market (US Benchmark)": "VTI", # Primary benchmark for US sectors
     "Info. Technology": "VGT",
     "Health Care": "VHT",
     "Financials": "VFH",
