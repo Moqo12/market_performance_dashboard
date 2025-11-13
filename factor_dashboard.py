@@ -13,7 +13,7 @@ st.markdown("Analyzing the performance of US investment factors and sectors, alo
 
 # --- Ticker Definitions (ALL US-LISTED & USD-DENOMINATED) ---
 FACTOR_TICKERS = {
-    "MSCI USA (US Benchmark)": "EUSA", # Primary benchmark for US factors
+    "MSCI USA (US Benchmark)": "CSUS.L", # Primary benchmark for US factors
     "MSCI World (Global Benchmark)": "URTH",
     "USA Momentum": "MTUM",
     "USA Value": "VLUE",
@@ -25,7 +25,7 @@ FACTOR_TICKERS = {
 
 REGION_TICKERS = {
     "MSCI World (Benchmark)": "URTH",
-    "MSCI USA (US Benchmark)": "EUSA",
+    "MSCI USA (US Benchmark)": "CSUS.L",
     "Japan": "EWJ",
     "UK": "EWU",
     "Europe ex-UK": "EZU",
@@ -35,7 +35,7 @@ REGION_TICKERS = {
 }
 
 SECTOR_TICKERS = {
-    "MSCI USA (US Benchmark)": "EUSA", # Primary benchmark for US sectors
+    "MSCI USA (US Benchmark)": "CSUS.L", # Primary benchmark for US sectors
     "Info. Technology": "VGT",
     "Health Care": "VHT",
     "Financials": "VFH",
@@ -270,4 +270,5 @@ with tab4:
     display_risk_correlation_section(ALL_TICKERS)
 
 st.markdown(f"--- \n_*Data last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*_")
+
 
