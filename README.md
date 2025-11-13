@@ -8,7 +8,7 @@ The dashboard is organized into four main tabs, each providing a unique analytic
 
 ### 1. Factor Performance
 
-- Tracks the performance of key US investment factors (Momentum, Value, Quality, Growth,Low Vol, Size) against the MSCI USA as a primary benchmark.
+- Tracks the performance of key US investment factors (Momentum, Value, Quality, Growth,Low Vol, Size) against the Vanguard US Market as a primary benchmark.
 
 Rendered result:  
 ![Factor Performance](images/factor_performance.png)
@@ -22,7 +22,7 @@ Rendered result:
 
 ### 3. Sector Performance
 
-- Provides a breakdown of the 11 major GICS sectors of the US market, benchmarked against the MSCI USA.
+- Provides a breakdown of the 11 major GICS sectors of the US market, benchmarked against the Vanguard US Market benchmark.
 - The **MSCI USA (Benchmark)** is also included here for easy relative analysis.
 
 ![Sector Performance](images/sector_performance.png)
