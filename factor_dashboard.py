@@ -51,21 +51,14 @@ SECTOR_TICKERS = {
 
 @st.cache_data(ttl=3600) # Cache data for 1 hour
 def get_performance_data(tickers, start_date):
-    """
-    Downloads historical data for US-listed ETFs.
-    Uses auto_adjust=True to get total return performance (dividends included).
-    """
     raw_data = yf.download(list(tickers.values()), start=start_date, progress=False, auto_adjust=True)
 
     if raw_data.empty or 'Close' not in raw_data:
         st.error(f"Could not download market data for one or more tickers.")
         return pd.DataFrame()
     
-    # Handle cases where only one ticker returns data
-    if isinstance(raw_data.columns, pd.MultiIndex):
-        data = raw_data['Close'].dropna(axis=1, how='all')
-    else:
-        data = raw_data[['Close']].dropna(axis=1, how='all')
+    # Keep only closing prices and drop empty columns
+    data = raw_data['Close'].dropna(axis=1, how='all')
 
     if data.empty:
         return pd.DataFrame()
@@ -75,6 +68,7 @@ def get_performance_data(tickers, start_date):
     data.rename(columns=ticker_to_name, inplace=True)
         
     return data
+
 
 def calculate_performance_metrics(data):
     """
@@ -178,40 +172,25 @@ def style_performance_table(df, benchmark_name):
     return df.style.apply(color_rows_gradient, axis=1).format("{:.2%}")
 
 def display_performance_section(title, tickers):
-    """Helper function to display a performance table and chart for a given set of tickers."""
+    """Display a performance table and chart for a given set of tickers."""
     st.header(f"{title} Performance Overview (USD)")
     start_date = (datetime.now() - pd.DateOffset(years=1)).strftime('%Y-%m-%d')
     
     data = get_performance_data(tickers, start_date)
     performance_table = calculate_performance_metrics(data)
     
-    # --- NEW: Dynamic Benchmark Selection ---
-    if title == "Factor" or title == "Sector":
+    # --- Dynamic Benchmark Selection ---
+    if title in ["Factor", "Sector"]:
         benchmark_name = "US Market (US Benchmark)"
-    else: # For Regional tab
+    else:  # Regional tab
         benchmark_name = "MSCI World (Benchmark)"
 
     if not performance_table.empty:
-        if benchmark_name in performance_table.index:
-            sort_col = "Year To Date (YTD)"
-            
-            if sort_col in performance_table.columns:
-                benchmark_perf = performance_table.loc[benchmark_name, sort_col]
-                
-                above_benchmark = performance_table[performance_table[sort_col] > benchmark_perf].sort_values(by=sort_col, ascending=False)
-                benchmark_row = performance_table.loc[[benchmark_name]]
-                below_benchmark = performance_table[performance_table[sort_col] <= benchmark_perf].drop(index=benchmark_name).sort_values(by=sort_col, ascending=False)
-                
-                display_table = pd.concat([above_benchmark, benchmark_row, below_benchmark])
-                
-                st.dataframe(style_performance_table(display_table, benchmark_name), use_container_width=True)
-            else:
-                 st.dataframe(style_performance_table(performance_table, benchmark_name), use_container_width=True)
-        else:
-            st.dataframe(performance_table.style.format("{:.2%}").background_gradient(cmap='RdYlGn'), use_container_width=True)
+        # Style table with benchmark highlighted
+        styled_table = style_performance_table(performance_table, benchmark_name)
+        st.dataframe(styled_table, use_container_width=True)
 
-        st.header(f"Visual Comparison - {title}")
-        
+        # --- Metric selection for charting ---
         metric_options = list(performance_table.columns)
         metric_to_plot = st.selectbox(
             "Choose a performance metric to visualize:",
@@ -229,6 +208,7 @@ def display_performance_section(title, tickers):
             st.warning(f"Could not find data for '{metric_to_plot}'.")
     else:
         st.warning(f"Could not display performance data for {title}.")
+
 
 def display_risk_correlation_section(all_tickers):
     """New section for Correlation and Rolling Performance analysis."""
